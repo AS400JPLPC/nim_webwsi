@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="fr-FR">
+	<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+
+
+
+	<!-- ================================================== -->
+	<!-- Placed at the end of the document so the pages load faster -->
+
+
+	<script src="js/libs/jquery-3.5.1.js"></script>
+	<script src="js/libs/prototype.js"></script>
+	<script src="js/libs/validatorfunc.js"></script>
+	<script src="js/libs/validator.js"></script>
+	<script src="js/libs/ecr00.js"></script>
+	<link rel="stylesheet" href="css/JPLw3.css">
+	</head>
+	<body class="w3-moccasin">
+
+<h1>Input Form css w3schools </h1>
+<form id="form01" >
+	<input id="DEVDHTML" value ="ecr01" type="hidden">
+  <fieldset>
+<br>
+
+<table>
+
+	<tr> 	<td><br></td>	</tr>
+  <tr>
+		<td>Nom</td>
+		<td>
+			<div class="w3-tooltip">
+				<input type="text" maxlength="30" class="inputccs" id="NOM" style="width: 550px;">
+				<span id='errNOM'  	class="w3-top w3-text w3-tag w3-round-large"><b></b></span>
+			</div>
+		</td>
+	</tr>
+</table>
+</fieldset>
+<br>
+  <input type="text"    id="MSGOPEN"  readonly >
+<br>
+	<input type="text"    id="MSGCLOSE" readonly >
+
+<br>
+  <input type="text"    id="MSGREAD"  readonly>
+
+<br>
+	<input type="text"    id="MSGWRITE"  readonly>
+
+<br>
+
+<input type="reset" value="Reset Button">
+<br><br>
+<div id='button'>
+	<button type = "button" class="w3-button w3-black w3-round-button"
+		onclick="testConnect();">test_connection</button>
+</div>
+
+<br /><br /><br />
+<div id='button'>
+  <button type = "button" class="w3-button w3-black w3-round-button"
+    onclick="setJsonArg('close','close');">Close</button>
+</div>
+
+
+<br /><br /><br />
+<div id='button'>
+	<button type = "button" class="w3-button w3-black w3-round-button"
+	onclick="setJsonArg('screen','fullScreen');">fullScreen</button>
+</div>
+<br /><br /><br />
+<div id='button'>
+	<button type = "button" class="w3-button w3-green w3-round-button"
+		onclick="setJsonArg('url','ecr00');">Page_Html</button>
+</div>
+	<br><br>
+
+</form>
+
+    Output:
+    <form><textarea id="ExampleOutput" style="width:100%" rows="15"></textarea>
+
+<script>
+
+
+
+
+var websocket ;
+var con = 0;
+var IPJob = "";
+var XMLbuffer = "";
+var vFin = "";
+
+function connect() {
+  if(con == 0 )
+	{
+    IPJob ='ws://127.0.0.1:9200/';
+		//websocket = new WebSocket(IPJob);
+		websocket = new WebSocket(IPJob,'testwebviewtoserver');
+		document.getElementById('MSGOPEN').value='';
+    document.getElementById('MSGCLOSE').value='';
+    document.getElementById('MSGREAD').value='';
+    document.getElementById('MSGWRITE').value='';
+    con =1;
+	};
+
+	websocket.onopen = function()
+	{
+		document.getElementById('MSGOPEN').value='Open Connection';
+	};
+
+
+  websocket.onclose = function()
+	{
+		document.getElementById('MSGCLOSE').value='End Connection';
+    if ( con == 1) { con =0; setTimeout(function(){connect()},0); }
+  };
+
+  websocket.onmessage = function(event)
+	{
+    //console.log(event.data);
+		document.getElementById('MSGREAD').value='Websocket Message: read' ;
+		//if (event.data =="CLOSE-SERVEUR") connectStop();
+	};
+
+};
+
+function setJsonArg(vFonc,vArg) {
+	(function( $ ) {
+		item = {};
+		item ["page"] = $("#DEVDHTML").val();
+		item ["fonc"] = vFonc;
+		item ["arg"]  = vArg;
+		websocket.send(JSON.stringify(item));
+	})(jQuery);
+
+};
+
+
+	function connectExit()
+  {
+		websocket.close();
+		document.getElementById('MSGCLOSE').value='End Connection';
+		document.getElementById('ExampleOutput').value='';
+  };
+
+
+function testConnect() {
+	var readyState = websocket.readyState;
+            if(readyState==1){
+                    // Send something to the socket
+                    document.getElementById('MSGOPEN').value='Open Connection';
+						if(readyState>1){
+										document.getElementById('MSGCLOSE').value='End Connection';
+            }
+    }
+};
+
+connect();
+jQuery.noConflict();
+(function( $ ) {
+
+//$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+// test online
+$('input:text').change(function() {
+
+	form01 .CrtlElement($(this));
+
+});
+
+//$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+// clear msg tooltip
+$('input:text').click(function() {
+
+	form01 .ClearTooltip($(this));
+
+});
+
+//$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+
+
+})(jQuery);
+  window.addEventListener("beforeunload", function (event) {
+  //windows.close();
+ //event.returnValue = "cancel";
+ });
+ //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+
+</script>
+</body>
+
+</html>

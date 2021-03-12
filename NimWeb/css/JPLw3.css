@@ -1,0 +1,69 @@
+.w3-moccasin,.w3-hover-moccasin:hover {color:#000!important;background-color:#ffe4b5!important}
+.w3-tag {background-color:#000;color:#fff;display:inline-block;padding-left:8px;padding-right:8px;text-align:center;font-size: 18px;}
+.w3-round-large{border-radius:8px!important}
+.w3-fluid{max-width:auto;height:auto;}
+.w3-tooltip {position:relative;}
+.w3-tooltip .w3-top{position:absolute;z-index: 1;left:0%;bottom:100%;}
+.w3-tooltip .w3-left{position:absolute;z-index: 1;float:left!important}
+.w3-tooltip .w3-right{position:absolute;z-index: 1;float:right!important}
+.w3-tooltip:hover .w3-text{display:inline-block;border-color: transparent transparent black transparent;}
+
+textarea {
+  width: 100%;
+  height: 150px;
+  padding: 30px 30px;
+  box-sizing: border-box;
+  border-radius:8px!important;
+  border: 1px solid  rgba(255, 165, 0, 1);
+  background-color: #f8f8f8;
+  font-size: 18px;
+  resize: none;
+}
+
+input[type=text]:focus, textarea:focus {
+  box-shadow: 0 0 5px rgba(81, 203, 238, 1);
+    border: 2px solid rgba(81, 203, 238, 1);
+    color:black
+}
+.inputccs{
+	box-shadow: 0 0 5px rgba(255, 165, 0, 1);
+    border-radius:8px!important;
+    border:  1px rgba(255, 165, 0, 1);
+    padding-left: 10px;
+    font-family: monospace;
+    font-size: 20px;
+    font-weight: normal;
+    color:blue
+	}
+
+input[type=text]:Invalid , textarea:Invalid {
+  box-shadow: 0 0 5px rgba(255, 0, 0, 1);
+  border: 1px solid rgba(255, 0, 0, 1);
+}
+
+.w3-round-button{border-radius:32px}
+.w3-green,.w3-hover-green:hover{color:#fff!important;background-color:#4CAF50!important}
+.w3-black,.w3-hover-black:hover{color:#e0ffff!important;background-color:#000!important}
+.w3-button:hover{color:#000!important;background-color:#e0ffff!important}
+.w3-button{border:none;display:inline-block;padding:2px 5px;vertical-align:middle;
+overflow:hidden;text-decoration:none;color:inherit;background-color:inherit;
+text-align:center;cursor:pointer;white-space:nowrap; font-family: monospace; font-size: 20px;}
+
+
+label {
+  font-family: monospace;
+  font-size: 20px;
+}
+
+
+.small {
+  font-size: 12px;
+}
+
+.large {
+  font-size: 20px;
+}
+
+p {
+  margin: 3px 0;  /* espace interligne */
+  }

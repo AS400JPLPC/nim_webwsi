@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="fr-FR">
+	<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+
+
+
+	<!-- ================================================== -->
+	<!-- Placed at the end of the document so the pages load faster -->
+
+
+		<script src="js/libs/jquery-3.5.1.js"></script>
+		<script src="js/libs/prototype.js"></script>
+    <script src="js/libs/validatorfunc.js"></script>
+		<script src="js/libs/validator.js"></script>
+		<script src="js/libs/ecr00.js"></script>
+		<link rel="stylesheet" href="css/JPLw3.css">
+
+	</head>
+<body class="w3-moccasin">
+
+<h1>Input Form css w3schools </h1>
+
+<form id="formid">
+	<input type="hidden" id='DEVDHTML' name='DEVDHTML' value ="ecr02">
+  <fieldset>
+<br>
+<table>
+  <tr>
+		<td><label>Date</label></td>
+		<td>
+			<div class="w3-tooltip">
+				<input type="text" maxlength="10" class='inputccs' id="DATE" size="10">
+				<span id='errDATE' class=' w3-rigth w3-text w3-tag  w3-round-large'></span><b></b></span>
+
+			</div>
+		</td>
+
+	</tr>
+	<tr> 	<td><br></td>	</tr>
+  <tr>
+		<td><label>Nom</label></td>
+		<td>
+			<div class="w3-tooltip">
+				<input type="text" maxlength="30" class='inputccs' id="NOM" size="30">
+				<span id='errNOM'  class='w3-top w3-text w3-tag w3-round-large'><b></b></span>
+			</div>
+		</td>
+
+		<td><label>Prénom</label></td>
+		<td>
+			<div class="w3-tooltip">
+				<input type="text" maxlength="30" class='inputccs' id="PRENOM" size="30">
+				<span id='errPRENOM' class='w3-rigth w3-text w3-tag w3-round-large'><b></b></span>
+			</div>
+		</td>
+	</tr>
+  <tr> 	<td><br></td>	</tr>
+	<tr>
+			<td><label>Pays</label></td>
+			<td><div>
+			<select id="CPAYS" >
+			</select>
+			</div></td>
+  </tr>
+</table>
+
+</fieldset>
+<br>
+  <input type="text"    id="MSGOPEN"  readonly >
+<br>
+	<input type="text"    id="MSGCLOSE" readonly >
+
+<br>
+  <input type="text"    id="MSGREAD"  readonly>
+
+<br>
+	<input type="text"    id="MSGWRITE"  readonly>
+
+<br>
+<div>
+<input type= "button" class="w3-button w3-green w3-round-button" id="submitPage" size="9" value="valider"/>
+</div>
+<input type="reset" value="Reset Button">
+<br><br>
+<div id='button'>
+	<button type = "button" class="w3-button w3-black w3-round-button"
+		onclick="testConnect();">test_connection</button>
+</div>
+<br>
+<div id='button'>
+	<button type = "button" class="w3-button w3-black w3-round-button"
+		onclick="ClearInput();">Clear Field input</button>
+</div>
+<br>
+<br>
+<div id='button'>
+  <button type = "button" class="w3-button w3-black w3-round-button"
+    onclick="setJsonArg('screen','fullScreen');">Screen</button>
+</div>
+<br>
+<div id='button'>
+  <button type = "button" class="w3-button w3-black w3-round-button"
+    onclick="setJsonArg('url','ecr01');">Page_Html</button>
+</div>
+<br>
+<div id='button'>
+  <button type = "button" class="w3-button w3-black w3-round-button"
+    onclick="setJsonArg('modal','ecr00A');">Modal_Html</button>
+</div>
+<br>
+<div id='button'>
+  <button type = "button" class="w3-button w3-black w3-round-button"
+	onclick="setJsonArg('endPage','ecr02');">retour win</button>
+</div>
+
+</form>
+<br><br>
+Output:
+<form><textarea id="ExampleOutput"  rows="10"></textarea> </form>
+
+<script>
+var websocket ;
+var con = 0;
+var IPJob = "";
+var vFin = "";
+var jsonData ="" ;
+var allInputs = $( ":input" );
+const reader = new FileReader();
+
+let buttonSubmit = document.getElementById('submitPage');
+let selectPays = document.getElementById('CPAYS');
+jQuery.noConflict();
+
+
+function connect() {
+  if(con == 0 )
+	{
+		//websocket = window.WebSocket || window.MozWebSocket;
+    IPJob ='ws://127.0.0.1:9200';
+    //websocket = new WebSocket(IPJob,'myfancyprotocol');
+		websocket = new WebSocket(IPJob,'testwebviewtoserver');
+		document.getElementById('MSGOPEN').value='';
+    document.getElementById('MSGCLOSE').value='';
+    document.getElementById('MSGREAD').value='';
+    document.getElementById('MSGWRITE').value='';
+    con =1;
+	};
+
+	websocket.onopen = function()
+	{
+		document.getElementById('MSGOPEN').value='Open Connection';
+  };
+
+	websocket.onclose = function()
+	{
+		document.getElementById('MSGCLOSE').value='End Connection';
+    if ( con == 1) { con =0; setTimeout(function(){connect()},0); }
+  };
+
+	websocket.onmessage = function(event) {
+
+		//console.debug("WebSocket message received:", event);
+		var data = JSON.parse(event.data);
+		document.getElementById('ExampleOutput').value='';
+		document.getElementById('ExampleOutput').value= document.getElementById('ExampleOutput').value + data.fonc +'\n';
+
+		if (data.fonc == "QueryMsg" ) {
+			document.getElementById('ExampleOutput').value= document.getElementById('ExampleOutput').value + data.arg ;
+		}
+
+    if (data.fonc == "country" ) {
+			document.getElementById('ExampleOutput').value= document.getElementById('ExampleOutput').value + data.arg;
+			var dataJson = JSON.parse(data.arg);
+			selectPays.length = 0;
+			let defaultOption = document.createElement('option');
+			defaultOption.text = 'Choose State';
+			selectPays.add(defaultOption);
+
+
+			let option;
+			for (let i = 0; i < dataJson.length; i++) {
+				option = document.createElement('option');
+				option.text = dataJson[i].Name;
+				if (dataJson[i].Code == "FR" ) {option.selected = true ;}
+				option.value = dataJson[i].Code;
+				selectPays.appendChild(option);
+			}
+		}
+		if (data.fonc == "record" ) {
+      document.getElementById('ExampleOutput').value= document.getElementById('ExampleOutput').value + data.arg ;
+			var dataRecord = JSON.parse(data.arg);
+		}
+		document.getElementById('MSGREAD').value='Websocket Message: read' ;
+	};
+
+
+
+};
+
+function testConnect() {
+						var readyState = websocket.readyState ;
+						//confirm(readyState);
+            if(readyState == 1){
+                    // Send something to the socket
+										document.getElementById('MSGOPEN').value='Open Connection';
+						}
+						if(readyState == 0){
+                    // Send something to the socket
+										document.getElementById('MSGOPEN').value='Connected';
+						}
+						if(readyState > 1){
+										document.getElementById('MSGCLOSE').value='End Connection';
+            }
+	};
+connect();
+
+
+function setJsonArg(vFonc,vArg) {
+	(function( $ ) {
+		item = {};
+		item ["page"] = $("#DEVDHTML").val();
+		item ["fonc"] = vFonc;
+		item ["arg"]  = vArg;
+		websocket.send(JSON.stringify(item));
+	})(jQuery);
+
+};
+
+
+
+
+
+
+
+
+selectPays.addEventListener("click", function() {
+    setJsonArg("getjson", "country");
+
+});
+
+//---------------------------------------------------------
+//  ajouter la méthode pour clear
+//  intégralement du format
+//---------------------------------------------------------
+
+function ClearInput() {
+	(function( $ ) {
+		form01.ClearRcdFmt();
+	})(jQuery);
+};
+(function( $ ) {
+
+//$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+// test online
+// This fires after the blob has been read/loaded.
+
+
+$('input:text').change(function() {
+
+	form01.CrtlElmFld($(this));
+
+});
+
+//$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+// clear msg tooltip
+$('input:text').click(function() {
+
+	form01.ClearTooltip($(this));
+
+});
+
+//$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+$( "#submitPage" ).click(function(event) {
+	if ( form01.CtrlSubmit(event))
+		{
+
+			rcd = {};
+			rcd ["nom"] =  $("#NOM").val().trim();
+			rcd ["nom"] =  $("#NOM").val().trim();
+			rcd ["prenom"] = $("#PRENOM").val().trim();
+			item= {};
+			item ["page"] = $("#DEVDHTML").val().trim();
+			item["fonc"] = "record";
+			item["arg"] = JSON.stringify(rcd);
+
+			document.getElementById('ExampleOutput').value='';
+			document.getElementById('ExampleOutput').value= document.getElementById('ExampleOutput').value + item.fonc ;
+			document.getElementById('ExampleOutput').value= document.getElementById('ExampleOutput').value + item.arg ;
+
+
+			websocket.send(JSON.stringify(item));
+
+			form01.ClearRcdFmt();
+		}
+		else { setJsonArg('warn','warning-error');	};
+
+	event.preventDefault();
+	return this.some_flag_variable;
+
+});
+
+})(jQuery);
+
+//$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+
+</script>
+</body>
+
+</html>
