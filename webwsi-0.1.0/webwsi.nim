@@ -10,8 +10,6 @@ import tables, strutils , uri
 import macros
 import json
 
-#import osproc
-
 ##
 ## Hight level api and javascript bindings to easy bidirectonal
 ## message passsing for ``nim`` and the ``webwsi`` .
@@ -103,6 +101,16 @@ proc debug*(format: cstring) {.varargs, importc: "webwsi_debug", header: "webwsi
 proc printLog*(s: cstring) {.importc: "webwsi_print_log", header: "webwsi.h".}
 
 proc dialogmsg(w: webwsi; flags: cint; title: cstring; arg: cstring;): cint {.importc: "webwsi_dialog_msg", header:"webwsi.h".}
+
+
+proc fullscreen*(w: webwsi;) {.importc: "webwsi_set_fullscreen", header: "webwsi.h".}
+proc chgUrl*(w: webwsi; url:cstring) {.importc: "webwsi_change_url", header: "webwsi.h".}
+proc setMessage*(w: webwsi;flags:cint, title : cstring, arg :cstring) {.importc:"webwsi_setMessage", header: "webwsi.h".}
+proc showModal*(w: webwsi;  url : cstring;)  {.importc: "webwsi_modal", header: "webwsi.h".}
+proc hideModal*(w: webwsi;)  {.importc: "webwsi_hide_modal", header: "webwsi.h".}
+proc showDialog*(w: webwsi;  url : cstring;)  {.importc: "webwsi_dialogx", header: "webwsi.h".}
+proc hideDialog*(w: webwsi;)  {.importc: "webwsi_hide_dialogx", header: "webwsi.h".}
+proc showWindow*(w: webwsi;r: webwsi;)  {.importc: "webwsi_show", header: "webwsi.h".}
 
 type
   # ExternalProc[P, R] = proc(param: P, ret: var R): int

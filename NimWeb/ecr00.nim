@@ -45,18 +45,6 @@ proc observer(w:webwsi;m:webwsi;d:webwsi;) {.thread}   =
       RESPONSE_YES          = -8
       RESPONSE_NO           = -9
 
-
-    proc fullscreen(w: webwsi;) {.importc: "webwsi_set_fullscreen", header: "webwsi.h".}
-    proc chgUrl(w: webwsi; url:cstring) {.importc: "webwsi_change_url", header: "webwsi.h".}
-    proc terminate(w: webwsi) {.importc:"webwsi_terminate", header: "webwsi.h".}
-    proc setMessage(w: webwsi;flags:cint, title : cstring, arg :cstring) {.importc:"webwsi_setMessage", header: "webwsi.h".}
-    proc showModal(w: webwsi;  url : cstring;)  {.importc: "webwsi_modal", header: "webwsi.h".}
-    proc hideModal(w: webwsi;)  {.importc: "webwsi_hide_modal", header: "webwsi.h".}
-    proc showDialog(w: webwsi;  url : cstring;)  {.importc: "webwsi_dialogx", header: "webwsi.h".}
-    proc hideDialog(w: webwsi;)  {.importc: "webwsi_hide_dialogx", header: "webwsi.h".}
-
-    proc showWindow(w: webwsi;r: webwsi;)  {.importc: "webwsi_show", header: "webwsi.h".}
-
     #----------------------------------------------------
     echo "New websocket customer arrived!"
     try:
