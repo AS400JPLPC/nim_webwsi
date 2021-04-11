@@ -153,10 +153,11 @@ proc observer(w:webwsi;m:webwsi;d:webwsi;) {.thread}   =
                     var html:string = $fmt"file:{getCurrentDir()}/{element.arg}.html"
                     echo html
                     m.showModal(html)
+                    echo "fenetre modal "
 
               of "dialog" :
                   if element.arg > "" :
-                    echo "fenetre modal "
+                    echo "fenetre dialog "
                   #w.hideWindow()
                     var html:string = $fmt"file:{getCurrentDir()}/{element.arg}.html"
                     echo html;
@@ -178,7 +179,6 @@ proc observer(w:webwsi;m:webwsi;d:webwsi;) {.thread}   =
 
               else: echo "non reconnue",element.page,"---", element.fonc
 
-
           of "ecr00A":
             # execute fonction
             case element.fonc:
@@ -193,7 +193,7 @@ proc observer(w:webwsi;m:webwsi;d:webwsi;) {.thread}   =
               of "info":
                 if element.arg > "" :
                   m.setMessage(cFlagInfo,"Info", "xxx")
-                  while w.repDialog == 999:
+                  while m.repDialog == 999:
                     sleep(1)
                   echo "serveur -->w.repDialog:", m.repDialog
                   #let jsonInfo = %* {"fonc": element.fonc, "arg": element.arg}
@@ -204,7 +204,7 @@ proc observer(w:webwsi;m:webwsi;d:webwsi;) {.thread}   =
               of "warn" :
                   if element.arg > "" :
                     m.setMessage(cFlagWarn,"Warning", "des erreurs de saisie sont détestés\nveuillez corriger")
-                    while w.repDialog == 999:
+                    while m.repDialog == 999:
                       sleep(1)
 
 
@@ -286,7 +286,7 @@ proc observer(w:webwsi;m:webwsi;d:webwsi;) {.thread}   =
               of "modal" :
                   if element.arg > "" :
                     echo "fenetre modal "
-                  #w.hideWindow()
+                    #w.hideWindow()
                     var html:string = $fmt"file:{getCurrentDir()}/{element.arg}.html"
                     echo html
                     m.showModal(html)

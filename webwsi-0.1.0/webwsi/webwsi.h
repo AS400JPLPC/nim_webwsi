@@ -94,6 +94,7 @@ struct webwsi {
   int  mheight;
   int  mfullscreen;
 
+
   webwsi_external_invoke_cb_t external_invoke_cb;
   struct webwsi_priv priv;
 
@@ -217,7 +218,7 @@ WEBWSI_API void webwsi_set_altf4(struct webwsi *w, int sflag){
 
 // utiliser apres hide ( modal / dialog )
 WEBWSI_API void webwsi_show(struct webwsi *w,struct webwsi *r){
-  if (nbrwin == 1 ) {
+  if (nbrwin >= 1 ) {
     gtk_widget_show_all(w->priv.window);
     gtk_window_activate_default(w->priv.window);
   }
@@ -235,7 +236,7 @@ WEBWSI_API void webwsi_show_init(struct webwsi *w){
   gtk_window_activate_default(w->priv.window);
 }
 
-
+/*
 static void hide_modal(struct webwsi *w ){
   w->url = webwsi_check_url("");
   webkit_web_view_load_uri(WEBKIT_WEB_VIEW(w->priv.webwin), w->url);
@@ -243,10 +244,11 @@ static void hide_modal(struct webwsi *w ){
   gtk_window_set_keep_above(w->priv.window,FALSE);
 
 }
-
+*/
 
 WEBWSI_API void webwsi_hide_modal(struct webwsi *w){
-  g_idle_add(hide_modal,w);
+  gtk_widget_hide(w->priv.window);
+  //g_idle_add(hide_modal,w);
   //g_source_remove(idle_id);
 }
 
@@ -267,16 +269,16 @@ WEBWSI_API void webwsi_modal(struct webwsi *w , const char * url){
   g_idle_add(webwsi_show_modal,w );
 }
 
-
+/*
 static void hide_dialogx(struct webwsi *w ){
   w->url = webwsi_check_url("");
   webkit_web_view_load_uri(WEBKIT_WEB_VIEW(w->priv.webwin), w->url);
   gtk_window_set_keep_above(w->priv.window,FALSE);
 }
-
+*/
 
 WEBWSI_API void webwsi_hide_dialogx(struct webwsi *w){
-  g_idle_add(hide_dialogx,w);
+  gtk_widget_hide(w->priv.window);
 }
 
 

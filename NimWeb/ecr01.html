@@ -97,7 +97,7 @@ var vFin = "";
 function connect() {
   if(con == 0 )
 	{
-    IPJob ='ws://127.0.0.1:9200/';
+    IPJob ='ws://127.0.0.1:9200';
 		//websocket = new WebSocket(IPJob);
 		websocket = new WebSocket(IPJob,'testwebviewtoserver');
 		document.getElementById('MSGOPEN').value='';
