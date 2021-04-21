@@ -18,7 +18,7 @@ thank-you [https://github.com/treeform/ws](https://github.com/treeform/ws)
 &rarr;&nbsp;{.passL: staticExec"pkg-config --libs gtk+-3.0 webkit2gtk-4.0".}<br />  
 
 
-&rarr;&nbsp;**update**&nbsp;&nbsp;:2021/04/21&nbsp;&nbsp;version WEBWSI_Hold.tar.gz&nbsp;&nbsp; in inject_css and set_font<br />  <br />  
+&rarr;&nbsp;**update**&nbsp;&nbsp;:2021/04/21&nbsp;&nbsp;version save WEBWSI_Hold.tar.gz&nbsp;&nbsp; in inject_css and set_font<br />  <br />  
 &rarr;&nbsp;**update**&nbsp;&nbsp;:2021/04/21&nbsp;&nbsp;delete&nbsp; inject_css and set_font 
 <br />  
 
