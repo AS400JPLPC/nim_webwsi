@@ -27,13 +27,13 @@ thank-you [https://github.com/treeform/ws](https://github.com/treeform/ws)
 Allows you to process a web page as we practice with ex (Apache) but with the webview principle.
 With a web-socket type interaction.
 
-the possibility of having 3 distinctive screens:
+the possibility of having 3 distinctive screens (session):
 
-&ndash;&nbsp;   the base page (a window)
+&ndash;&nbsp;   the base page (new a window)
 
-&ndash;&nbsp;   a modal page (a window)
+&ndash;&nbsp;   a modal page (new a window)
 
-&ndash;&nbsp;   a dialog page (a window)
+&ndash;&nbsp;   a dialog page (new a window)
 
 Each of these pages works like a web page processed with a browser.   
   
