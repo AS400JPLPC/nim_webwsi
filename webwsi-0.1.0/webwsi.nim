@@ -67,7 +67,6 @@ proc loop*(w: webwsi; blocking: cint): cint {.importc: "webwsi_loop", header: "w
 
 proc eval*(w: webwsi; js: cstring): cint {.importc: "webwsi_eval", header: "webwsi.h".}
 
-proc injectCss*(w: webwsi; css: cstring): cint {.importc: "webwsi_inject_css", header: "webwsi.h".}
 
 proc setTitle*(w: webwsi; title: cstring) {.importc: "webwsi_set_title", header: "webwsi.h".}
 
@@ -87,7 +86,6 @@ proc setResizable*(w: webwsi;  hint: bool) {.importc: "webwsi_setresizable", hea
 
 proc setFocus*(w: webwsi) {.inline.} ={.emit: "gtk_widget_grab_focus(GTK_WINDOW(`w`->priv.window));".}
 
-proc setFont*(w: webwsi; hint: cstring) {.importc: "webwsi_set_font", header: "webwsi.h".}
 
 proc setFullscreen*(w: webwsi;) {.importc: "webwsi_set_fullscreen", header: "webwsi.h".}
 

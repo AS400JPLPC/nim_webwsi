@@ -133,15 +133,6 @@ static int  nbrwin;
 
 
 
-#define CSS_INJECT_FUNCTION                                                    \
-  "(function(e){var "                                                          \
-  "t=document.createElement('style'),d=document.head||document."               \
-  "getElementsByTagName('head')[0];t.setAttribute('type','text/"               \
-  "css'),t.styleSheet?t.styleSheet.cssText=e:t.appendChild(document."          \
-  "createTextNode(e)),d.appendChild(t)})"
-
-
-
 
 
 
@@ -202,12 +193,9 @@ WEBWSI_API gboolean key_press_ALTF4(WebKitWebView *webview,
 
 
 
-//WEBWSI_API int webview(const char *title, const char *url, int width,
-//                        int height, int resizable);
-
 
 WEBWSI_API int webwsi_eval(struct webwsi *w, const char *js);
-WEBWSI_API int webwsi_inject_css(struct webwsi *w, const char *css);
+
 
 
 
@@ -236,20 +224,9 @@ WEBWSI_API void webwsi_show_init(struct webwsi *w){
   gtk_window_activate_default(w->priv.window);
 }
 
-/*
-static void hide_modal(struct webwsi *w ){
-  w->url = webwsi_check_url("");
-  webkit_web_view_load_uri(WEBKIT_WEB_VIEW(w->priv.webwin), w->url);
-  gtk_window_set_modal(w->priv.window,FALSE);
-  gtk_window_set_keep_above(w->priv.window,FALSE);
-
-}
-*/
 
 WEBWSI_API void webwsi_hide_modal(struct webwsi *w){
   gtk_widget_hide(w->priv.window);
-  //g_idle_add(hide_modal,w);
-  //g_source_remove(idle_id);
 }
 
 
@@ -269,13 +246,6 @@ WEBWSI_API void webwsi_modal(struct webwsi *w , const char * url){
   g_idle_add(webwsi_show_modal,w );
 }
 
-/*
-static void hide_dialogx(struct webwsi *w ){
-  w->url = webwsi_check_url("");
-  webkit_web_view_load_uri(WEBKIT_WEB_VIEW(w->priv.webwin), w->url);
-  gtk_window_set_keep_above(w->priv.window,FALSE);
-}
-*/
 
 WEBWSI_API void webwsi_hide_dialogx(struct webwsi *w){
   gtk_widget_hide(w->priv.window);
@@ -450,46 +420,6 @@ WEBWSI_API void webwsi_debug(const char *format, ...) {
   va_end(ap);
 }
 
-static int webwsi_js_encode(const char *s, char *esc, size_t n) {
-  int r = 1; /* At least one byte for trailing zero */
-  for (; *s; s++) {
-    const unsigned char c = *s;
-    if (c >= 0x20 && c < 0x80 && strchr("<>\\'\"", c) == NULL) {
-      if (n > 0) {
-        *esc++ = c;
-        n--;
-      }
-      r++;
-    } else {
-      if (n > 0) {
-        snprintf(esc, n, "\\x%02x", (int)c);
-        esc += 4;
-        n -= 4;
-      }
-      r += 4;
-    }
-  }
-  return r;
-}
-
-WEBWSI_API int webwsi_inject_css(struct webwsi *w, const char *css) {
-  int n = webwsi_js_encode(css, NULL, 0);
-  char *esc = (char *)calloc(1, sizeof(CSS_INJECT_FUNCTION) + n + 4);
-  if (esc == NULL) {
-    return -1;
-  }
-  char *js = (char *)calloc(1, n);
-  webwsi_js_encode(css, js, n);
-  snprintf(esc, sizeof(CSS_INJECT_FUNCTION) + n + 4, "%s(\"%s\")",
-            CSS_INJECT_FUNCTION, js);
-  int r = webwsi_eval(w, esc);
-  free(js);
-  free(esc);
-  return r;
-}
-WEBWSI_API void webwsi_set_font(struct webwsi *w,  const char *css) {
-    webwsi_inject_css(w,(const char*)css);
-}
 
 #if defined(WEBWSI_GTK)
 static void external_message_received_cb(WebKitUserContentManager *m,
@@ -605,11 +535,6 @@ WEBWSI_API int webwsi_init(struct webwsi *w ) {
     g_signal_connect(G_OBJECT(w->priv.webwin), "context-menu",
                       G_CALLBACK(webwsi_context_menu_cb), w);
   }
-
-  //webwsi_set_font(w,"style.type = 'text/css'; style.fontFamily ='monospace'; style.font-size: 2.5em;");
-      /*font-size: 2.5em;   /*40px/16=2.5em */
-      /*font-size: 1.875em;  30px/16=1.875em */
-
 
   if (w->url != "" ) gtk_widget_show_all(w->priv.window);
   else gtk_window_set_keep_above(w->priv.window,FALSE);
@@ -824,7 +749,7 @@ static int modal_init(struct webwsi *w ) {
 
   gtk_window_set_title(GTK_WINDOW(w->modl.window), w->mtitle);
   gtk_window_set_modal(GTK_WINDOW(w->modl.window), TRUE);
-  //gtk_container_set_border_width(GTK_CONTAINER(w->modl.window),10);
+
 
   gtk_window_set_default_size(GTK_WINDOW(w->modl.window), w->mwidth, w->mheight);
 
@@ -833,7 +758,7 @@ static int modal_init(struct webwsi *w ) {
 
 
   w->modl.scroller = gtk_scrolled_window_new(NULL, NULL);
-  //gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(w->modl.scroller), GTK_POLICY_ALWAYS, GTK_POLICY_ALWAYS);
+
   gtk_container_add(GTK_CONTAINER(w->modl.window), w->modl.scroller);
 
   printf("799");
@@ -847,8 +772,7 @@ static int modal_init(struct webwsi *w ) {
   w->modl.webwin = w->priv.webwin;
   webkit_web_view_load_uri(WEBKIT_WEB_VIEW(w->modl.webwin),
                             webwsi_check_url(w->murl));
-  /*g_signal_connect(G_OBJECT(w->modl.webwin), "load-changed",
-                    G_CALLBACK(modal_load_changed_cb), w); */
+
   gtk_container_add(GTK_CONTAINER(w->modl.scroller), w->modl.webwin);
 
   g_signal_connect(G_OBJECT(w->modl.window) ,"delete_event",
@@ -863,11 +787,6 @@ static int modal_init(struct webwsi *w ) {
     g_signal_connect(G_OBJECT(w->modl.webwin), "context-menu",
                       G_CALLBACK(modal_context_menu_cb), w);
   }
-
-  //webwsi_set_font(w,"style.type = 'text/css'; style.fontFamily ='monospace'; style.font-size: 2.5em;");
-      /*font-size: 2.5em;   /*40px/16=2.5em */
-      /*font-size: 1.875em;  30px/16=1.875em */
-
 
   gtk_widget_show_all(w->modl.window);
   webkit_web_view_run_javascript(

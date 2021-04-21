@@ -151,6 +151,11 @@ function main() {
     title="setTaskBar(w: webwsi; hint: bool)">setTaskBar,<wbr>webwsi,<wbr>bool</a></li>
 
   </ul>
+  <ul class="simple nested-toc-section">chgUrl
+      <li><a class="reference" href="#chgUrl%2Cwebwsi%2Ccstring"
+    title="chgUrl(w: webwsi; url: cstring)">chgUrl,<wbr>webwsi,<wbr>cstring</a></li>
+
+  </ul>
   <ul class="simple nested-toc-section">debug
       <li><a class="reference" href="#debug%2Ccstring"
     title="debug(format: cstring)">debug,<wbr>cstring</a></li>
@@ -184,6 +189,21 @@ function main() {
   <ul class="simple nested-toc-section">setAltF4
       <li><a class="reference" href="#setAltF4%2Cwebwsi%2Cbool"
     title="setAltF4(w: webwsi; hint: bool)">setAltF4,<wbr>webwsi,<wbr>bool</a></li>
+
+  </ul>
+  <ul class="simple nested-toc-section">showModal
+      <li><a class="reference" href="#showModal%2Cwebwsi%2Ccstring"
+    title="showModal(w: webwsi; url: cstring)">showModal,<wbr>webwsi,<wbr>cstring</a></li>
+
+  </ul>
+  <ul class="simple nested-toc-section">showDialog
+      <li><a class="reference" href="#showDialog%2Cwebwsi%2Ccstring"
+    title="showDialog(w: webwsi; url: cstring)">showDialog,<wbr>webwsi,<wbr>cstring</a></li>
+
+  </ul>
+  <ul class="simple nested-toc-section">fullscreen
+      <li><a class="reference" href="#fullscreen%2Cwebwsi"
+    title="fullscreen(w: webwsi)">fullscreen,<wbr>webwsi</a></li>
 
   </ul>
   <ul class="simple nested-toc-section">setTitle
@@ -221,6 +241,11 @@ function main() {
     title="setResizable(w: webwsi; hint: bool)">setResizable,<wbr>webwsi,<wbr>bool</a></li>
 
   </ul>
+  <ul class="simple nested-toc-section">showWindow
+      <li><a class="reference" href="#showWindow%2Cwebwsi%2Cwebwsi"
+    title="showWindow(w: webwsi; r: webwsi)">showWindow,<wbr>webwsi,<wbr>webwsi</a></li>
+
+  </ul>
   <ul class="simple nested-toc-section">setDestroy
       <li><a class="reference" href="#setDestroy%2Cwebwsi"
     title="setDestroy(w: webwsi)">setDestroy,<wbr>webwsi</a></li>
@@ -242,19 +267,24 @@ function main() {
     title="init(w: webwsi): cint">init,<wbr>webwsi</a></li>
 
   </ul>
+  <ul class="simple nested-toc-section">hideModal
+      <li><a class="reference" href="#hideModal%2Cwebwsi"
+    title="hideModal(w: webwsi)">hideModal,<wbr>webwsi</a></li>
+
+  </ul>
   <ul class="simple nested-toc-section">setDeletable
       <li><a class="reference" href="#setDeletable%2Cwebwsi%2Cbool"
     title="setDeletable(w: webwsi; hint: bool)">setDeletable,<wbr>webwsi,<wbr>bool</a></li>
 
   </ul>
-  <ul class="simple nested-toc-section">setFont
-      <li><a class="reference" href="#setFont%2Cwebwsi%2Ccstring"
-    title="setFont(w: webwsi; hint: cstring)">setFont,<wbr>webwsi,<wbr>cstring</a></li>
-
-  </ul>
   <ul class="simple nested-toc-section">setFocus
       <li><a class="reference" href="#setFocus%2Cwebwsi"
     title="setFocus(w: webwsi)">setFocus,<wbr>webwsi</a></li>
+
+  </ul>
+  <ul class="simple nested-toc-section">setMessage
+      <li><a class="reference" href="#setMessage%2Cwebwsi%2Ccint%2Ccstring%2Ccstring"
+    title="setMessage(w: webwsi; flags: cint; title: cstring; arg: cstring)">setMessage,<wbr>webwsi,<wbr>cint,<wbr>cstring,<wbr>cstring</a></li>
 
   </ul>
   <ul class="simple nested-toc-section">externalInvokeCB=
@@ -282,14 +312,14 @@ function main() {
     title="setFullscreen(w: webwsi)">setFullscreen,<wbr>webwsi</a></li>
 
   </ul>
-  <ul class="simple nested-toc-section">injectCss
-      <li><a class="reference" href="#injectCss%2Cwebwsi%2Ccstring"
-    title="injectCss(w: webwsi; css: cstring): cint">injectCss,<wbr>webwsi,<wbr>cstring</a></li>
-
-  </ul>
   <ul class="simple nested-toc-section">endClose
       <li><a class="reference" href="#endClose%2Cwebwsi"
     title="endClose(w: var webwsi)">endClose,<wbr>webwsi</a></li>
+
+  </ul>
+  <ul class="simple nested-toc-section">hideDialog
+      <li><a class="reference" href="#hideDialog%2Cwebwsi"
+    title="hideDialog(w: webwsi)">hideDialog,<wbr>webwsi</a></li>
 
   </ul>
   <ul class="simple nested-toc-section">bindProcNoArg
@@ -442,14 +472,6 @@ function main() {
 
 
 </dd>
-<a id="injectCss,webwsi,cstring"></a>
-<dt><pre><span class="Keyword">proc</span> <a href="#injectCss%2Cwebwsi%2Ccstring"><span class="Identifier">injectCss</span></a><span class="Other">(</span><span class="Identifier">w</span><span class="Other">:</span> <a href="webwsi.html#webwsi"><span class="Identifier">webwsi</span></a><span class="Other">;</span> <span class="Identifier">css</span><span class="Other">:</span> <span class="Identifier">cstring</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">cint</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;webwsi_inject_css&quot;</span><span class="Other">,</span>
-    <span class="Identifier">header</span><span class="Other">:</span> <span class="StringLit">&quot;webwsi.h&quot;</span></span><span class="Other">.}</span></span></pre></dt>
-<dd>
-
-
-
-</dd>
 <a id="setTitle,webwsi,cstring"></a>
 <dt><pre><span class="Keyword">proc</span> <a href="#setTitle%2Cwebwsi%2Ccstring"><span class="Identifier">setTitle</span></a><span class="Other">(</span><span class="Identifier">w</span><span class="Other">:</span> <a href="webwsi.html#webwsi"><span class="Identifier">webwsi</span></a><span class="Other">;</span> <span class="Identifier">title</span><span class="Other">:</span> <span class="Identifier">cstring</span><span class="Other">)</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;webwsi_set_title&quot;</span><span class="Other">,</span>
     <span class="Identifier">header</span><span class="Other">:</span> <span class="StringLit">&quot;webwsi.h&quot;</span></span><span class="Other">.}</span></span></pre></dt>
@@ -511,14 +533,6 @@ function main() {
 
 
 </dd>
-<a id="setFont,webwsi,cstring"></a>
-<dt><pre><span class="Keyword">proc</span> <a href="#setFont%2Cwebwsi%2Ccstring"><span class="Identifier">setFont</span></a><span class="Other">(</span><span class="Identifier">w</span><span class="Other">:</span> <a href="webwsi.html#webwsi"><span class="Identifier">webwsi</span></a><span class="Other">;</span> <span class="Identifier">hint</span><span class="Other">:</span> <span class="Identifier">cstring</span><span class="Other">)</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;webwsi_set_font&quot;</span><span class="Other">,</span>
-    <span class="Identifier">header</span><span class="Other">:</span> <span class="StringLit">&quot;webwsi.h&quot;</span></span><span class="Other">.}</span></span></pre></dt>
-<dd>
-
-
-
-</dd>
 <a id="setFullscreen,webwsi"></a>
 <dt><pre><span class="Keyword">proc</span> <a href="#setFullscreen%2Cwebwsi"><span class="Identifier">setFullscreen</span></a><span class="Other">(</span><span class="Identifier">w</span><span class="Other">:</span> <a href="webwsi.html#webwsi"><span class="Identifier">webwsi</span></a><span class="Other">)</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;webwsi_set_fullscreen&quot;</span><span class="Other">,</span>
                                 <span class="Identifier">header</span><span class="Other">:</span> <span class="StringLit">&quot;webwsi.h&quot;</span></span><span class="Other">.}</span></span></pre></dt>
@@ -559,6 +573,68 @@ function main() {
 </dd>
 <a id="printLog,cstring"></a>
 <dt><pre><span class="Keyword">proc</span> <a href="#printLog%2Ccstring"><span class="Identifier">printLog</span></a><span class="Other">(</span><span class="Identifier">s</span><span class="Other">:</span> <span class="Identifier">cstring</span><span class="Other">)</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;webwsi_print_log&quot;</span><span class="Other">,</span> <span class="Identifier">header</span><span class="Other">:</span> <span class="StringLit">&quot;webwsi.h&quot;</span></span><span class="Other">.}</span></span></pre></dt>
+<dd>
+
+
+
+</dd>
+<a id="fullscreen,webwsi"></a>
+<dt><pre><span class="Keyword">proc</span> <a href="#fullscreen%2Cwebwsi"><span class="Identifier">fullscreen</span></a><span class="Other">(</span><span class="Identifier">w</span><span class="Other">:</span> <a href="webwsi.html#webwsi"><span class="Identifier">webwsi</span></a><span class="Other">)</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;webwsi_set_fullscreen&quot;</span><span class="Other">,</span>
+                             <span class="Identifier">header</span><span class="Other">:</span> <span class="StringLit">&quot;webwsi.h&quot;</span></span><span class="Other">.}</span></span></pre></dt>
+<dd>
+
+
+
+</dd>
+<a id="chgUrl,webwsi,cstring"></a>
+<dt><pre><span class="Keyword">proc</span> <a href="#chgUrl%2Cwebwsi%2Ccstring"><span class="Identifier">chgUrl</span></a><span class="Other">(</span><span class="Identifier">w</span><span class="Other">:</span> <a href="webwsi.html#webwsi"><span class="Identifier">webwsi</span></a><span class="Other">;</span> <span class="Identifier">url</span><span class="Other">:</span> <span class="Identifier">cstring</span><span class="Other">)</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;webwsi_change_url&quot;</span><span class="Other">,</span>
+                                       <span class="Identifier">header</span><span class="Other">:</span> <span class="StringLit">&quot;webwsi.h&quot;</span></span><span class="Other">.}</span></span></pre></dt>
+<dd>
+
+
+
+</dd>
+<a id="setMessage,webwsi,cint,cstring,cstring"></a>
+<dt><pre><span class="Keyword">proc</span> <a href="#setMessage%2Cwebwsi%2Ccint%2Ccstring%2Ccstring"><span class="Identifier">setMessage</span></a><span class="Other">(</span><span class="Identifier">w</span><span class="Other">:</span> <a href="webwsi.html#webwsi"><span class="Identifier">webwsi</span></a><span class="Other">;</span> <span class="Identifier">flags</span><span class="Other">:</span> <span class="Identifier">cint</span><span class="Other">;</span> <span class="Identifier">title</span><span class="Other">:</span> <span class="Identifier">cstring</span><span class="Other">;</span> <span class="Identifier">arg</span><span class="Other">:</span> <span class="Identifier">cstring</span><span class="Other">)</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma">
+    <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;webwsi_setMessage&quot;</span><span class="Other">,</span> <span class="Identifier">header</span><span class="Other">:</span> <span class="StringLit">&quot;webwsi.h&quot;</span></span><span class="Other">.}</span></span></pre></dt>
+<dd>
+
+
+
+</dd>
+<a id="showModal,webwsi,cstring"></a>
+<dt><pre><span class="Keyword">proc</span> <a href="#showModal%2Cwebwsi%2Ccstring"><span class="Identifier">showModal</span></a><span class="Other">(</span><span class="Identifier">w</span><span class="Other">:</span> <a href="webwsi.html#webwsi"><span class="Identifier">webwsi</span></a><span class="Other">;</span> <span class="Identifier">url</span><span class="Other">:</span> <span class="Identifier">cstring</span><span class="Other">)</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;webwsi_modal&quot;</span><span class="Other">,</span>
+    <span class="Identifier">header</span><span class="Other">:</span> <span class="StringLit">&quot;webwsi.h&quot;</span></span><span class="Other">.}</span></span></pre></dt>
+<dd>
+
+
+
+</dd>
+<a id="hideModal,webwsi"></a>
+<dt><pre><span class="Keyword">proc</span> <a href="#hideModal%2Cwebwsi"><span class="Identifier">hideModal</span></a><span class="Other">(</span><span class="Identifier">w</span><span class="Other">:</span> <a href="webwsi.html#webwsi"><span class="Identifier">webwsi</span></a><span class="Other">)</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;webwsi_hide_modal&quot;</span><span class="Other">,</span> <span class="Identifier">header</span><span class="Other">:</span> <span class="StringLit">&quot;webwsi.h&quot;</span></span><span class="Other">.}</span></span></pre></dt>
+<dd>
+
+
+
+</dd>
+<a id="showDialog,webwsi,cstring"></a>
+<dt><pre><span class="Keyword">proc</span> <a href="#showDialog%2Cwebwsi%2Ccstring"><span class="Identifier">showDialog</span></a><span class="Other">(</span><span class="Identifier">w</span><span class="Other">:</span> <a href="webwsi.html#webwsi"><span class="Identifier">webwsi</span></a><span class="Other">;</span> <span class="Identifier">url</span><span class="Other">:</span> <span class="Identifier">cstring</span><span class="Other">)</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;webwsi_dialogx&quot;</span><span class="Other">,</span>
+    <span class="Identifier">header</span><span class="Other">:</span> <span class="StringLit">&quot;webwsi.h&quot;</span></span><span class="Other">.}</span></span></pre></dt>
+<dd>
+
+
+
+</dd>
+<a id="hideDialog,webwsi"></a>
+<dt><pre><span class="Keyword">proc</span> <a href="#hideDialog%2Cwebwsi"><span class="Identifier">hideDialog</span></a><span class="Other">(</span><span class="Identifier">w</span><span class="Other">:</span> <a href="webwsi.html#webwsi"><span class="Identifier">webwsi</span></a><span class="Other">)</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;webwsi_hide_dialogx&quot;</span><span class="Other">,</span> <span class="Identifier">header</span><span class="Other">:</span> <span class="StringLit">&quot;webwsi.h&quot;</span></span><span class="Other">.}</span></span></pre></dt>
+<dd>
+
+
+
+</dd>
+<a id="showWindow,webwsi,webwsi"></a>
+<dt><pre><span class="Keyword">proc</span> <a href="#showWindow%2Cwebwsi%2Cwebwsi"><span class="Identifier">showWindow</span></a><span class="Other">(</span><span class="Identifier">w</span><span class="Other">:</span> <a href="webwsi.html#webwsi"><span class="Identifier">webwsi</span></a><span class="Other">;</span> <span class="Identifier">r</span><span class="Other">:</span> <a href="webwsi.html#webwsi"><span class="Identifier">webwsi</span></a><span class="Other">)</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;webwsi_show&quot;</span><span class="Other">,</span>
+                                        <span class="Identifier">header</span><span class="Other">:</span> <span class="StringLit">&quot;webwsi.h&quot;</span></span><span class="Other">.}</span></span></pre></dt>
 <dd>
 
 
@@ -686,7 +762,7 @@ scope.fn(arg)</pre>
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br/>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2021-03-12 14:40:31 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2021-04-21 10:11:14 UTC</small>
       </div>
     </div>
   </div>

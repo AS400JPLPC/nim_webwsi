@@ -19,6 +19,10 @@ thank-you [https://github.com/treeform/ws](https://github.com/treeform/ws)
 
 
 
+&rarr;&nbsp;**update**&nbsp;&nbsp;:2021/04/21&nbsp;&nbsp;delete inject_css and set_font 
+
+
+
 ** fonction:<br />
 Allows you to process a web page as we practice with ex (Apache) but with the webview principle.
 With a web-socket type interaction.
@@ -57,8 +61,6 @@ proc loop(w: webwsi; blocking: cint): cint {...}
 
 proc eval(w: webwsi; js: cstring): cint {...}
 
-proc injectCss(w: webwsi; css: cstring): cint {...}
-
 proc setTitle(w: webwsi; title: cstring) {...}
 
 proc setAltF4(w: webwsi; hint: bool) {...}
@@ -75,8 +77,6 @@ proc setResizable(w: webwsi; hint: bool) {...}
 
 proc setFocus(w: webwsi) {...}
 
-proc setFont(w: webwsi; hint: cstring) {...}
-
 proc setFullscreen(w: webwsi) {...}
 
 proc setColor(w: webwsi; r, g, b, a: uint8) {...}
@@ -88,6 +88,22 @@ proc exit(w: webwsi) {...}
 proc debug(format: cstring) {...}
 
 proc printLog(s: cstring) {...}
+
+proc fullscreen(w: webwsi) {...}
+
+proc chgUrl(w: webwsi; url: cstring) {...}
+
+proc setMessage(w: webwsi; flags: cint; title: cstring; arg: cstring) {...}
+
+proc showModal(w: webwsi; url: cstring) {...}
+
+proc hideModal(w: webwsi) {...}
+
+proc showDialog(w: webwsi; url: cstring) {...}
+
+proc hideDialog(w: webwsi) {...}
+
+proc showWindow(w: webwsi; r: webwsi) {...}
 
 proc externalInvokeCB=(w: webwsi; cb: ExternalInvokeCb) {...}
 
@@ -128,7 +144,10 @@ proc bindProc[P](w: webwsi; scope, name: string; p: proc (arg: P))
 
 proc endClose(w: var webwsi) {...}
 
-Macros
+
+
+
+**Macros**
 
 macro bindProcs(w: webwsi; scope: string; n: untyped): untyped
 
@@ -143,4 +162,5 @@ macro bindProcs(w: webwsi; scope: string; n: untyped): untyped
     scope.fn(arg)
 
 
-Made with Nim. Generated: 2021-03-12 14:40:31 UTC
+
+Made with Nim. Generated: 2021-04-21 10:11:14 UTC
