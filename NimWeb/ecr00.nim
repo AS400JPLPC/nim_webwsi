@@ -7,6 +7,9 @@ import strformat
 import webwsi
 
 
+{.warning[CStringConv]: off.}
+
+
 proc observer(w:webwsi;m:webwsi;d:webwsi;) {.thread}   =
   echo "start observer"
 
@@ -188,6 +191,7 @@ proc observer(w:webwsi;m:webwsi;d:webwsi;) {.thread}   =
               of "endPage" :
                   if element.arg > "" :
                     echo "fermer modal "
+
                     m.hideModal()
                     w.showWindow(m)
               of "info":
@@ -300,7 +304,6 @@ proc observer(w:webwsi;m:webwsi;d:webwsi;) {.thread}   =
       echo "socket closed:", getCurrentExceptionMsg()
 
   waitFor server.serve(Port(9200),cb)
-
 
 
 

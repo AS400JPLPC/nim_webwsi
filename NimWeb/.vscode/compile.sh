@@ -47,21 +47,21 @@ if [ "$mode" == "DEBUG" ] ; then
 
   if [ "$projet_typ" == "PIE" ] ; then
 		( set -x ; \
-			nim c -f --gc:orc -d:forceGtk  \
-				-d:useMalloc --deadCodeElim:on --panics:on \
-				--threads:on \
-				--verbosity:1 \
-				--warning[UnusedImport]:on --hint[Performance]:off --warning[Deprecated]:on --warning[EachIdentIsTuple]:on \
-				--passL:-no-pie --app:GUI  \
-				-o:$projet_bin   $projet_src ; \
+				nim c -f --gc:arc -d:forceGtk \
+			-d:useMalloc  --panics:on \
+			--verbosity:1 \
+			--warning[UnusedImport]:on --hint[Performance]:off --warning[Deprecated]:on --warning[EachIdentIsTuple]:on \
+			--threads:on \
+			--passL:-no-pie --app:GUI  \
+			-o:$projet_bin   $projet_src ; \
 	)
   else
 	( set -x ; \
-    nim  c  -f --gc:orc -d:useMalloc --deadCodeElim:on --panics:on \
+    		nim  c  -f --gc:arc -d:useMalloc  --panics:on \
 			--debuginfo --linedir:on \
-			--threads:on \
 			--verbosity:1 \
 			--warning[UnusedImport]:on --hint[Performance]:off  --warning[Deprecated]:on --warning[EachIdentIsTuple]:on \
+			--threads:on \
 			-o:$projet_bin   $projet_src ; \
 	)
   fi
@@ -70,33 +70,33 @@ fi
 if [ "$mode" == "PROD" ] ; then
   if [ "$projet_typ" == "PIE" ] ; then
 		( set -x ; \
-			nim  c -f --gc:orc -d:forceGtk -d:useMalloc --deadCodeElim:on  \
-				--verbosity:0 --hints:off  \
-				--threads:on \
-				--app:GUI  \
-				--passL:-no-pie \
-				--passc:-flto -d:release \
-				-o:$projet_bin   $projet_src ; \
+				nim  c -f --gc:orc -d:forceGtk -d:useMalloc \
+			--passc:-flto --passC:-fno-builtin-memcpy \
+			--verbosity:0 --hints:off  \
+			--threads:on  --app:GUI  \
+			--passL:-no-pie -d:release \
+			-o:$projet_bin   $projet_src ; \
 	)
   else
 		( set -x ; \
-			nim  c -f --gc:orc -d:useMalloc --deadCodeElim:on \
-				--verbosity:0 --hints:off  \
-				--threads:on \
-				--passc:-flto -d:release  \
-				-o:$projet_bin   $projet_src ; \
+				nim  c -f --gc:orc -d:useMalloc \
+			--passc:-flto --passC:-fno-builtin-memcpy \
+			--verbosity:0 --hints:off  \
+			--threads:on \
+			 -d:release  \
+			-o:$projet_bin   $projet_src ; \
 	)
   fi
 fi
 
 if [ "$mode" == "TEST" ] ; then
 	( set -x ; \
-			nim  c -f --gc:orc  -d:useMalloc  --nilseqs:on --warning[Deprecated]:off \
-				--hint[Performance]:off  --warning[Deprecated]:on --warning[EachIdentIsTuple]:on \
-				--threads:on \
-				--passL:-no-pie \
-				--passL:-lrt \
-				-o:$projet_bin   $projet_src ; \
+				nim  c -f --gc:orc  -d:useMalloc  --warning[Deprecated]:off \
+			--hint[Performance]:off  --warning[Deprecated]:on --warning[EachIdentIsTuple]:on \
+			--threads:on \
+			--passL:-no-pie \
+     	--passL:-lrt \
+			-o:$projet_bin   $projet_src ; \
 	)
 fi
 #-------------------------------------------------------------------
